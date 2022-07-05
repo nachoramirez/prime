@@ -41,12 +41,12 @@ const genres = [
   'Occidental',
 ]
 
-export const NavBar = () => {
+const NavBar = () => {
   const [exploreOpen, setExploreOpen] = useState(false)
   const [categoriesOpen, setCategoriesOpen] = useState(false)
 
   return (
-    <NavBarContainer>
+    <NavBarContainer data-testid='NavBar'>
       <ExploreContainer onClick={() => setExploreOpen(!exploreOpen)}>
         <ExploreButton>Explorar</ExploreButton>
         <Arrow open={exploreOpen} />
@@ -62,12 +62,15 @@ export const NavBar = () => {
           <NavItem>Películas</NavItem>
         </li>
         <li>
-          <SubDropDown onClick={() => setCategoriesOpen(!categoriesOpen)}>
+          <SubDropDown
+            data-testid='categoriesButton'
+            onClick={() => setCategoriesOpen(!categoriesOpen)}
+          >
             <NavItem>Categorias</NavItem>
             <Arrow open={categoriesOpen} />
           </SubDropDown>
         </li>
-        <HeaderCategories open={categoriesOpen}>
+        <HeaderCategories open={categoriesOpen} data-testid='categories'>
           <CategoriesContainer>
             <h3>Categorías principales</h3>
             <PrincipalCategories>
@@ -96,7 +99,7 @@ export const NavBar = () => {
                 <h3>Géneros</h3>
                 <CategoryList>
                   {genres.map((item) => (
-                    <li>
+                    <li key={item}>
                       <CategoryItem>{item}</CategoryItem>
                     </li>
                   ))}
@@ -120,3 +123,5 @@ export const NavBar = () => {
     </NavBarContainer>
   )
 }
+
+export default NavBar

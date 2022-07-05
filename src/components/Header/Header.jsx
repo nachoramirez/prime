@@ -2,50 +2,36 @@ import React, { useState, useRef, useEffect } from 'react'
 import {
   HeaderContainer,
   HeaderLogo,
-  SearchInput,
-  SearchContainter,
-  SearchIcon,
-  CloseButton,
   Profile,
   ProfileImage,
   ProfileName,
   ProfileDropButton,
   Arrow,
+  LogOutButton,
 } from './Header'
 
 import Logo from '../../static/primeLogo.svg'
-import Search from '../../static/searchIcon.svg'
 import ProfileSrc from '../../static/profileImage.png'
-import CloseIcon from '../../static/closeIcon.svg'
 
-import { NavBar } from '../NavBar/NavBar.jsx'
-import { useOutsideClick } from '../../hooks/useOutsideClick'
+import NavBar from '../NavBar/NavBar.jsx'
+import Search from '../Search/Search.jsx'
 
 const Header = () => {
-  const [searchOpen, setOpenSearch] = useState(false)
-  const ref = useRef(null)
-
-  useOutsideClick(ref, setOpenSearch)
-
+  const [profileOpen, setProfileOpen] = useState(false)
   return (
     <HeaderContainer>
-      <HeaderLogo  src={Logo} alt='prime video logo' />
+      <HeaderLogo src={Logo} alt='prime video logo' />
       <NavBar />
-      <SearchContainter ref={ref} open={searchOpen}>
-        <SearchIcon onClick={() => setOpenSearch(true)} src={Search} />
-        <SearchInput open={searchOpen} placeholder='Buscar' />
-        <CloseButton
-          onClick={() => setOpenSearch(false)}
-          open={searchOpen}
-          src={CloseIcon}
-        />
-      </SearchContainter>
-      <Profile >
+      <Search />
+      <Profile>
         <ProfileImage src={ProfileSrc} />
-        <ProfileDropButton>
+        <ProfileDropButton onClick={() => setProfileOpen(!profileOpen)}>
           <ProfileName>Perfil</ProfileName>
-          <Arrow open={false}/>
+          <Arrow open={profileOpen} />
         </ProfileDropButton>
+        <LogOutButton open={profileOpen}>
+          <h4> Cerrar sesion</h4>
+        </LogOutButton>
       </Profile>
     </HeaderContainer>
   )
